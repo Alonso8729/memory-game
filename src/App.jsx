@@ -5,10 +5,21 @@ import Header from './components/Header.jsx'
 
 function App() {
 
+  useEffect(() => {
+
+  }, []);
+
+  const handleCardClick = (cardId) => {
+
+  }
+
+  const resetGame = () => {
+
+  }
+
   return (
     <div className="App">
       <Header />
-
     </div>
   )
 }
