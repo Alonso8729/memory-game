@@ -1,4 +1,4 @@
-import bgImage from '../assets/hp-logo2.png'
+import bgImage from '../assets/hp-logo.png'
 import '../styles/Header.css'
 
 export default function Header() {
