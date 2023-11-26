@@ -1,14 +1,14 @@
 import bgImage from '../assets/hp-logo.png'
 import '../styles/Header.css'
 
-export default function Header() {
+export default function Header({score,highestScore}) {
 
     return (
         <header>
             <img className='logo' src={`${bgImage}`} />
             <div className="scoreboard">
-                <p>SCORE: </p>
-                <p>HIGHEST SCORE: </p>
+                <p>SCORE: {score}</p>
+                <p>HIGHEST SCORE: {highestScore}</p>
             </div>
         </header>
     )
