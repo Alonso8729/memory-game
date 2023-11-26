@@ -1,0 +1,8 @@
+.gameboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    place-content: center;
+    padding: 40px;
+    position: relative;
+}

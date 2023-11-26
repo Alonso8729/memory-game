@@ -1,0 +1,33 @@
+.card {
+    max-width: 150px;
+    max-height: 200px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    padding: 30px;
+    aspect-ratio: 1/1.55;
+
+}
+
+
+.card-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-content>p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 16px;
+    text-align: center;
+    padding: 10px 0;
+    line-height: 1.5;
+}
+
+.card-content>img {
+    width: 85%;
+    height: 85%;
+    border-radius: 8px;
+}
