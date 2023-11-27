@@ -1,14 +1,14 @@
 import '../styles/Card.css'
 
-export default function Card({ card, handleClick }) {
+export default function Card({ card, handleClick, isFlipped }) {
 
 
     return (
-        <div onClick={() => handleClick(card)}
-            className="card"
+        <div onClick={!isFlipped ? () => handleClick(card) : undefined}
+            className={`card ${isFlipped ? 'is-flipped' : ''}`}
             key={card.id}
         >
-            <div className="card-content">
+            <div className="card-content" style={{ display: `${isFlipped ? 'none' : ''}` }}>
                 <img src={card.image} />
                 <p>{card.name}</p>
             </div>
