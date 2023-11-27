@@ -1,16 +1,17 @@
 import '../styles/Card.css'
 
-export default function Card({ id, image, handleClick, name }) {
-   
+export default function Card({ card, handleClick }) {
+
 
     return (
-            <div /*onClick={() => handleClick(id)}*/
-                className="card"
-            >
-                <div className="card-content">
-                    <img src={image} />
-                    <p>{name}</p>
-                </div>
+        <div onClick={() => handleClick(card)}
+            className="card"
+            key={card.id}
+        >
+            <div className="card-content">
+                <img src={card.image} />
+                <p>{card.name}</p>
             </div>
+        </div>
     )
 }
