@@ -12,43 +12,63 @@ function App() {
     score: 0,
     highestScore: localStorage.getItem('highestScore') || 0
   })
+  
 
+  const fetchCards = async () => {
+    try {
+      const response = await fetch('https://hp-api.onrender.com/api/characters')
+      const data = await response.json()
+      setGameState((prevState) => (
+        {
+          ...prevState,
+          allCards: data
+        }
+      ))
+      selectCardsForRound();
+    }
+    catch (e) {
+      console.error('Error fetching cards: ', e);
+    }
+  }
 
   useEffect(() => {
-    const fetchCards = async () => {
-      try {
-        const response = await fetch('https://hp-api.onrender.com/api/characters')
-        const data = await response.json()
-        setGameState((prevState) => (
-          {
-            ...prevState,
-            allCards: data
-          }
-        ))
-        selectCardsForRound();
-      }
-      catch (e) {
-        console.error('Error fetching cards: ', e);
-      }
-    }
     fetchCards();
   }, []);
 
-  useEffect(() => {
-    const handleCardClick = (id) => {
+  const handleCardClick = (card) => {
+    const { selectedCards, score } = gameState
 
+    if (!selectedCards.some((selectedCard) => selectedCard.id === card.id)) {
+      const newScore = score + 1;
+      const newSelectedCards = [...gameState.selectedCards, card];
+      setGameState((prevState) => ({
+        ...prevState,
+        score: newScore,
+        selectedCards: newSelectedCards
+      }))
     }
-  }, [])
+    else {
+      handleGameOver();
+    }
+    fetchCards()
+  }
 
   const selectCardsForRound = () => {
     const { allCards, selectedCards } = gameState;
-    // Choose 4 cards, 3 random and 1 that already selected
+    // Filter all cards with an image and 
+    const shuffledAllCards = [...allCards].filter((card) => card.image && typeof card.image === 'string' && card.image.length > 0)
+      .sort(() => Math.random() - 0.5)
+    // Select one card from selectedCards array
     const randomlySelectedCard = selectedCards.length > 0 ?
       selectedCards[Math.floor(Math.random() * selectedCards.length)] :
       null;
+
+    // Ensure the randomly selected card is not duplicated
     const newRoundCards = randomlySelectedCard ?
-      [randomlySelectedCard, ...allCards].slice(0, 4) :
-      [...allCards].slice(0, 4)
+      [randomlySelectedCard, ...shuffledAllCards
+        .filter(card => card.id !== randomlySelectedCard.id)].slice(0, 5) :
+      [...shuffledAllCards].slice(0, 5);
+
     const shuffledCards = [...newRoundCards].sort(() => Math.random() - 0.5)
     // update cards for that round
     setGameState((prevState) => ({
@@ -57,14 +77,27 @@ function App() {
     }))
   }
 
-  const resetGame = () => {
-
+  const handleGameOver = () => {
+    if (gameState.score > gameState.highestScore) {
+      const newHighestScore = gameState.score
+      setGameState((prevState) => ({
+        ...prevState,
+        highestScore: newHighestScore
+      }))
+    }
+    setGameState((prevState) => ({
+      ...prevState,
+      score: 0,
+      currentCards: [],
+      selectedCards: [],
+      allCards: []
+    }))
   }
 
   return (
     <div className="App">
       <Header score={gameState.score} highestScore={gameState.highestScore} />
-      <Gameboard /*handleClick={handleCardClick}*/ cards={gameState.currentCards} />
+      <Gameboard handleClick={handleCardClick} cards={gameState.currentCards} />
     </div>
   )
 }
