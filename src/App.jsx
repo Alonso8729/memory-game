@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './styles/App.css'
 import Header from './components/Header.jsx'
 import Gameboard from './components/Gameboard.jsx';
+import StartGame from './components/StartGame.jsx';
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     highestScore: localStorage.getItem('highestScore') || 0
   })
   const [isFlipped, setIsFlipped] = useState(false)
+  const [isGameOn, setIsGameOn] = useState(false)
 
 
   const fetchCards = async () => {
@@ -68,8 +70,8 @@ function App() {
     // Ensure the randomly selected card is not duplicated
     const newRoundCards = randomlySelectedCard ?
       [randomlySelectedCard, ...shuffledAllCards
-        .filter(card => card.id !== randomlySelectedCard.id)].slice(0, 5) :
-      [...shuffledAllCards].slice(0, 5);
+        .filter(card => card.id !== randomlySelectedCard.id)].slice(0, 4) :
+      [...shuffledAllCards].slice(0, 4);
 
     const shuffledCards = [...newRoundCards].sort(() => Math.random() - 0.5)
     // update cards for that round
@@ -91,6 +93,10 @@ function App() {
         highestScore: newHighestScore
       }))
     }
+    resetGame();
+  }
+
+  const resetGame = () => {
     setGameState((prevState) => ({
       ...prevState,
       score: 0,
@@ -102,8 +108,12 @@ function App() {
 
   return (
     <div className="App">
-      <Header score={gameState.score} highestScore={gameState.highestScore} />
-      <Gameboard handleClick={handleCardClick} cards={gameState.currentCards} />
+      {!isGameOn && <StartGame />}
+      {isGameOn &&
+        <Header score={gameState.score} highestScore={gameState.highestScore} />
+        &&
+        <Gameboard isFlipped={isFlipped} handleClick={handleCardClick} cards={gameState.currentCards} />
+      }
     </div>
   )
 }
