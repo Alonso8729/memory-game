@@ -12,7 +12,8 @@ function App() {
     score: 0,
     highestScore: localStorage.getItem('highestScore') || 0
   })
-  
+  const [isFlipped, setIsFlipped] = useState(false)
+
 
   const fetchCards = async () => {
     try {
@@ -54,6 +55,7 @@ function App() {
   }
 
   const selectCardsForRound = () => {
+    setIsFlipped(true)
     const { allCards, selectedCards } = gameState;
     // Filter all cards with an image and 
     const shuffledAllCards = [...allCards].filter((card) => card.image && typeof card.image === 'string' && card.image.length > 0)
@@ -75,6 +77,10 @@ function App() {
       ...prevState,
       currentCards: shuffledCards
     }))
+
+    setTimeout(() => {
+      setIsFlipped(false)
+    }, 3000)
   }
 
   const handleGameOver = () => {
