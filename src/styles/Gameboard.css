@@ -3,6 +3,6 @@
     flex-wrap: wrap;
     gap: 25px;
     place-content: center;
-    padding: 40px;
+    padding: 80px 40px;
     position: relative;
 }
