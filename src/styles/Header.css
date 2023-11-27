@@ -6,6 +6,11 @@ header {
 
 .logo {
     max-width: 275px;
+    cursor: pointer;
+}
+
+.logo:hover {
+    transform: scale(1.1);
 }
 
 .scoreboard {
@@ -14,6 +19,6 @@ header {
     gap: 25px;
     color: #fff;
     padding: 0 30px;
-    font-size: 0.8rem;
+    font-size: 1rem;
     margin-top: -20px;
 }
