@@ -7,6 +7,7 @@ header {
 .logo {
     max-width: 275px;
     cursor: pointer;
+    padding: 20px;
 }
 
 .logo:hover {
@@ -18,7 +19,7 @@ header {
     flex-wrap: wrap;
     gap: 25px;
     color: #fff;
-    padding: 0 30px;
+    padding: 30px;
     font-size: 1rem;
     margin-top: -20px;
 }
