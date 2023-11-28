@@ -4,6 +4,7 @@ import Header from './components/Header.jsx'
 import Gameboard from './components/Gameboard.jsx';
 import StartGame from './components/StartGame.jsx';
 import InfoModal from './components/InfoModal.jsx';
+import Settings from './components/Settings.jsx';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
   const [isFlipped, setIsFlipped] = useState(false)
   const [isGameOn, setIsGameOn] = useState(false)
   const [isInfoModal, setIsInfoModal] = useState(false)
+  const [isVolumeOn, setIsVolumeOn] = useState(true)
 
   const fetchCards = async () => {
     try {
@@ -120,13 +122,15 @@ function App() {
         (<StartGame handleInfo={() => setIsInfoModal(!isInfoModal)} handleStartGame={handleStartGame} />)
         :
         <>
-          <Header score={gameState.score} highestScore={gameState.highestScore} />
+          <Header onClick={() => setIsGameOn(false)} score={gameState.score} highestScore={gameState.highestScore} />
           <Gameboard isFlipped={isFlipped} handleClick={handleCardClick} cards={gameState.currentCards} />
         </>
 
       }
       <InfoModal handleCancel={() => setIsInfoModal(false)} isInfoModal={isInfoModal} />
+      <Settings isVolumeOn={isVolumeOn} setIsVolume={setIsVolumeOn} />
     </div>
+
   )
 }
 
