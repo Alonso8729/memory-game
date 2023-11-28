@@ -1,0 +1,43 @@
+.start-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.image-card {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+}
+
+.start-title {
+    font-family: 'Potta One', sans-serif;
+    color: rgb(219, 190, 25);
+    font-size: 48px;
+    padding: 30px;
+}
+
+button {
+    padding: 14px 18px;
+    color: rgb(176, 152, 16);
+    background-color: #000;
+    outline: none;
+    border-radius: 7px;
+    border: 3px solid rgb(192, 164, 10);
+    text-align: center;
+    font-size: 24px;
+    cursor: pointer;
+    font-family: 'Potta One', sans-serif;
+    width: 15.7vw;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+.buttons {
+    display: flex;
+    gap: 15px;
+}

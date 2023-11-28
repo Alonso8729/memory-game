@@ -3,6 +3,7 @@ import './styles/App.css'
 import Header from './components/Header.jsx'
 import Gameboard from './components/Gameboard.jsx';
 import StartGame from './components/StartGame.jsx';
+import InfoModal from './components/InfoModal.jsx';
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
   })
   const [isFlipped, setIsFlipped] = useState(false)
   const [isGameOn, setIsGameOn] = useState(false)
-
+  const [isInfoModal, setIsInfoModal] = useState(false)
 
   const fetchCards = async () => {
     try {
@@ -93,6 +94,7 @@ function App() {
         highestScore: newHighestScore
       }))
     }
+    localStorage.setItem('highestScore', gameState.score.toString());
     resetGame();
   }
 
@@ -106,14 +108,24 @@ function App() {
     }))
   }
 
+  const handleStartGame = () => {
+    setIsGameOn(true)
+    selectCardsForRound()
+    console.log(isGameOn)
+  }
+
   return (
     <div className="App">
-      {!isGameOn && <StartGame />}
-      {isGameOn &&
-        <Header score={gameState.score} highestScore={gameState.highestScore} />
-        &&
-        <Gameboard isFlipped={isFlipped} handleClick={handleCardClick} cards={gameState.currentCards} />
+      {!isGameOn ?
+        (<StartGame handleInfo={() => setIsInfoModal(!isInfoModal)} handleStartGame={handleStartGame} />)
+        :
+        <>
+          <Header score={gameState.score} highestScore={gameState.highestScore} />
+          <Gameboard isFlipped={isFlipped} handleClick={handleCardClick} cards={gameState.currentCards} />
+        </>
+
       }
+      <InfoModal handleCancel={() => setIsInfoModal(false)} isInfoModal={isInfoModal} />
     </div>
   )
 }
