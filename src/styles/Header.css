@@ -23,3 +23,15 @@ header {
     font-size: 1rem;
     margin-top: -20px;
 }
+
+@media screen and (max-width:425px) {
+    .logo {
+        max-width: 250px;
+    }
+
+    .scoreboard {
+        padding: 30px 10px 10px 10px;
+        font-size: 0.85rem;
+    }
+
+}

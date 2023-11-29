@@ -18,3 +18,13 @@
     align-items: center;
     padding: 10px;
 }
+
+@media screen and (max-width:425px) {
+    .icon-container>i {
+        font-size: 15px;
+    }
+
+    .settings {
+        top: 48px;
+    }
+}
