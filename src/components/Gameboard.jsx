@@ -1,9 +1,9 @@
 import '../styles/Gameboard.css'
 import Card from '../components/Card'
 
-export default function Gameboard({ cards, handleClick, isFlipped }) {
+export default function Gameboard({ cards, handleClick, isFlipped, onVisible }) {
     return (
-        <div className="gameboard">
+        <div className={onVisible ? `hidden` : 'gameboard'}>
             {cards && cards.map(card =>
                 <Card
                     handleClick={handleClick}
