@@ -18,7 +18,7 @@ function App() {
   const [isFlipped, setIsFlipped] = useState(false)
   const [isGameOn, setIsGameOn] = useState(false)
   const [isInfoModal, setIsInfoModal] = useState(false)
-  const [isVolumeOn, setIsVolumeOn] = useState(true)
+  const [isVolumeOn, setIsVolumeOn] = useState(false)
 
   const fetchCards = async () => {
     try {
