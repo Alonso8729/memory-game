@@ -5,6 +5,7 @@ import Gameboard from './components/Gameboard.jsx';
 import StartGame from './components/StartGame.jsx';
 import InfoModal from './components/InfoModal.jsx';
 import Settings from './components/Settings.jsx';
+import GameOver from './components/GameOver.jsx';
 
 
 function App() {
@@ -17,8 +18,10 @@ function App() {
   })
   const [isFlipped, setIsFlipped] = useState(false)
   const [isGameOn, setIsGameOn] = useState(false)
+  const [isGameOver, setIsGameOver] = useState(false)
   const [isInfoModal, setIsInfoModal] = useState(false)
   const [isVolumeOn, setIsVolumeOn] = useState(false)
+
 
   const fetchCards = async () => {
     try {
@@ -89,6 +92,7 @@ function App() {
   }
 
   const handleGameOver = () => {
+    setIsGameOver(true)
     if (gameState.score > gameState.highestScore) {
       const newHighestScore = gameState.score
       setGameState((prevState) => ({
@@ -113,8 +117,10 @@ function App() {
   const handleStartGame = () => {
     setIsGameOn(true)
     selectCardsForRound()
-    console.log(isGameOn)
+    setIsGameOver(false)
   }
+
+
 
   return (
     <div className="App">
@@ -123,12 +129,12 @@ function App() {
         :
         <>
           <Header onClick={() => setIsGameOn(false)} score={gameState.score} highestScore={gameState.highestScore} />
-          <Gameboard isFlipped={isFlipped} handleClick={handleCardClick} cards={gameState.currentCards} />
+          <Gameboard onVisible={isGameOver} isFlipped={isFlipped} handleClick={handleCardClick} cards={gameState.currentCards} />
         </>
-
       }
       <InfoModal handleCancel={() => setIsInfoModal(false)} isInfoModal={isInfoModal} />
       <Settings isVolumeOn={isVolumeOn} setIsVolume={setIsVolumeOn} />
+      <GameOver handleStart={handleStartGame} isGameOver={isGameOver} onClose={() => setIsGameOver(false)} />
     </div>
 
   )
