@@ -30,7 +30,7 @@ button {
     font-size: 24px;
     cursor: pointer;
     font-family: 'Potta One', sans-serif;
-    width: 15.7vw;
+    box-shadow: 0 5px 10px #000, 0 -5px 10px #000;
 }
 
 button:hover {
@@ -39,5 +39,20 @@ button:hover {
 
 .buttons {
     display: flex;
-    gap: 15px;
+    gap: 20px;
+    padding-top: 15px;
+}
+
+@media screen and (max-width:425px) {
+    .image-card {
+        max-width: 325px;
+    }
+
+    .start-title {
+        font-size: 36px;
+    }
+
+    button {
+        font-size: 18px;
+    }
 }
