@@ -7,8 +7,10 @@ export default function Settings({ isVolumeOn, setIsVolume }) {
 
     const toggleVolume = () => {
         setIsVolume(!isVolumeOn);
+    };
 
-        if (!isVolumeOn) {
+    useEffect(() => {
+        if (isVolumeOn) {
             audio.play().catch((error) => {
                 console.error('Error playing audio:', error);
             });
@@ -16,18 +18,25 @@ export default function Settings({ isVolumeOn, setIsVolume }) {
             audio.pause();
             audio.currentTime = 0;
         }
-    };
+    }, [isVolumeOn, audio]);
 
     useEffect(() => {
         const handleAudioEnd = () => {
+            // Reset the audio to the beginning and play again when it ends
             audio.currentTime = 0;
-            audio.play();
+            audio.play().catch((error) => {
+                console.error('Error playing audio:', error);
+            });
         };
+
         audio.addEventListener('ended', handleAudioEnd);
+
+        // Clean up event listener on component unmount
         return () => {
             audio.removeEventListener('ended', handleAudioEnd);
         };
     }, [audio]);
+
 
     return (
         <div className="settings">
