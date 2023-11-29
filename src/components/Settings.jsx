@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import '../styles/Settings.css'
 import theme from '../assets/theme.mp3'
 
@@ -17,6 +17,17 @@ export default function Settings({ isVolumeOn, setIsVolume }) {
             audio.currentTime = 0;
         }
     };
+
+    useEffect(() => {
+        const handleAudioEnd = () => {
+            audio.currentTime = 0;
+            audio.play();
+        };
+        audio.addEventListener('ended', handleAudioEnd);
+        return () => {
+            audio.removeEventListener('ended', handleAudioEnd);
+        };
+    }, [audio]);
 
     return (
         <div className="settings">
