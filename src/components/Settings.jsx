@@ -1,8 +1,9 @@
 import { React, useState } from 'react'
 import '../styles/Settings.css'
+import theme from '../assets/theme.mp3'
 
 export default function Settings({ isVolumeOn, setIsVolume }) {
-    const [audio] = useState(new Audio('../assets/theme.mp3'));
+    const [audio] = useState(new Audio(`${theme}`));
 
     const toggleVolume = () => {
         setIsVolume(!isVolumeOn);
